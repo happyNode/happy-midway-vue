@@ -69,7 +69,7 @@ const actions = {
         commit('SET_AVATAR', info.headImg)
 
         // init socket
-        dispatch('ws/initSocket', null, { root: true })
+        // dispatch('ws/initSocket', null, { root: true })
 
         resolve({ menus, perms, user: info })
       }).catch(error => {

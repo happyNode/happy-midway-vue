@@ -56,11 +56,11 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:7001',
+        target: 'http://opensource.admin.si-yee.com/api',
         pathRewrite: { '^/api': '' }
       },
       '/ws': {
-        target: 'ws://127.0.0.1:7002',
+        target: 'ws://opensource.admin.si-yee.com/ws',
         ws: true
       }
     }
