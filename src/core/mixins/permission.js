@@ -97,7 +97,7 @@ export default {
           realMenu.children = childMenu
         } else if (
           parentMenu &&
-          parentMenu.id === menu.parentId &&
+          parentMenu.menuId === menu.parentId &&
           menu.type === 1
         ) {
           // 子菜单下继续找是否有子菜单
@@ -106,7 +106,7 @@ export default {
           realMenu.children = childMenu
         } else if (
           parentMenu &&
-          parentMenu.id === menu.parentId &&
+          parentMenu.menuId === menu.parentId &&
           menu.type === 0
         ) {
           // 如果还是目录，继续递归
@@ -115,14 +115,14 @@ export default {
           realMenu.children = childMenu
         } else if (
           parentMenu &&
-          parentMenu.id === menu.parentId &&
+          parentMenu.menuId === menu.parentId &&
           menu.type === 2
         ) {
           realMenu = { ...menu }
         }
         // add curent route
         if (realMenu) {
-          realMenu.pid = menu.id
+          realMenu.pid = menu.menuId
           res.push(realMenu)
         }
       })
@@ -151,14 +151,14 @@ export default {
           node.children = childNode
         } else if (
           parentMenu &&
-          parentMenu.id === menu.parentId &&
+          parentMenu.menuId === menu.parentId &&
           menu.type === 1
         ) {
           // 子菜单则停止
           node = { label: menu.name }
         } else if (
           parentMenu &&
-          parentMenu.id === menu.parentId &&
+          parentMenu.menuId === menu.parentId &&
           menu.type === 0
         ) {
           // 如果还是目录，继续递归
@@ -168,7 +168,7 @@ export default {
         }
 
         if (node) {
-          node.id = menu.id
+          node.menuId = menu.menuId
           res.push(node)
         }
       })
@@ -193,7 +193,7 @@ export default {
           node.children = childNode
         } else if (
           parentMenu &&
-          parentMenu.id === menu.parentId &&
+          parentMenu.menuId === menu.parentId &&
           menu.type === 1
         ) {
           // 子菜单则停止
@@ -202,7 +202,7 @@ export default {
           node.children = childNode
         } else if (
           parentMenu &&
-          parentMenu.id === menu.parentId &&
+          parentMenu.menuId === menu.parentId &&
           menu.type === 0
         ) {
           // 如果还是目录，继续递归
@@ -211,7 +211,7 @@ export default {
           node.children = childNode
         } else if (
           parentMenu &&
-          parentMenu.id === menu.parentId &&
+          parentMenu.menuId === menu.parentId &&
           menu.type === 2
         ) {
           // 权限停止递归
@@ -219,7 +219,7 @@ export default {
         }
 
         if (node) {
-          node.id = menu.id
+          node.menuId = menu.menuId
           res.push(node)
         }
       })

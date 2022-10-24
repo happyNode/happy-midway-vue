@@ -19,8 +19,8 @@
           :data="menus"
           :props="{ children: 'children', label: 'label' }"
           @node-click="
-            data => {
-              handleMenuNodeClick(data.id, data.label, scope)
+            (data) => {
+              handleMenuNodeClick(data.menuId, data.label, scope)
             }
           "
         />
@@ -39,7 +39,7 @@
       <el-select
         v-model="scope.viewPath"
         placeholder="请选择文件路径"
-        style="width: 100%;"
+        style="width: 100%"
       >
         <el-option
           v-for="item in getViewFiles()"
@@ -89,9 +89,12 @@ export default {
       if (this.menuId !== -1) {
         // update mode
         showLoading()
-        this.$api.sys.menu.info({ menuId: this.menuId })
-          .then(res => {
+        this.$api.sys.menu
+          .info({ menuId: this.menuId })
+          .then((res) => {
             const { menu, parentMenu } = res.data
+            menu.isShow = menu.isShow === 1
+            menu.keepalive = menu.keepalive === 1
             menu.parentNode = {
               id: parentMenu ? menu.parentId : -1,
               name: parentMenu ? parentMenu.name : '一级菜单'
@@ -109,16 +112,20 @@ export default {
       delete data.parentNode
       data.parentId = parentNode.id
       let req = null
-
+      data.isShow = data.isShow ? 1 : 0
+      if (data.keepalive) {
+        data.keepalive = data.keepalive ? 1 : 0
+      }
       if (this.menuId === -1) {
         // create
+
         req = this.$api.sys.menu.add(data)
       } else {
         data.menuId = this.menuId
         req = this.$api.sys.menu.update(data)
       }
       req
-        .then(_ => {
+        .then((_) => {
           this.$emit('save-success')
           close()
         })
@@ -254,22 +261,22 @@ export default {
             component: {
               name: 'el-switch'
             }
-          },
-          {
-            label: '排序号',
-            prop: 'orderNum',
-            value: 255,
-            component: {
-              name: 'el-input-number',
-              style: {
-                width: '100%'
-              },
-              props: {
-                'controls-position': 'right',
-                min: 0
-              }
-            }
           }
+          // {
+          //   label: '排序号',
+          //   prop: 'orderNum',
+          //   value: 255,
+          //   component: {
+          //     name: 'el-input-number',
+          //     style: {
+          //       width: '100%'
+          //     },
+          //     props: {
+          //       'controls-position': 'right',
+          //       min: 0
+          //     }
+          //   }
+          // }
         ]
       })
     }

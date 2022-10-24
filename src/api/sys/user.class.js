@@ -4,18 +4,18 @@ import { PermissionAction, PermissionPrefix } from '@/core/permission/decorator'
 @PermissionPrefix('sys/user')
 class SysUser {
   @PermissionAction()
-  page(data) {
+  page(params) {
     return request({
-      url: 'sys/user/page',
-      method: 'post',
-      data
+      url: 'user/page',
+      method: 'get',
+      params
     })
   }
 
   @PermissionAction()
   add(data) {
     return request({
-      url: 'sys/user/add',
+      url: 'user/add',
       method: 'post',
       data
     })
@@ -24,16 +24,15 @@ class SysUser {
   @PermissionAction()
   info(query) {
     return request({
-      url: 'sys/user/info',
-      method: 'get',
-      params: query
+      url: `user/info/${query.userId}`,
+      method: 'get'
     })
   }
 
   @PermissionAction()
   update(data) {
     return request({
-      url: 'sys/user/update',
+      url: 'user/update',
       method: 'post',
       data
     })
@@ -42,7 +41,7 @@ class SysUser {
   @PermissionAction()
   password(data) {
     return request({
-      url: 'sys/user/password',
+      url: 'user/password',
       method: 'post',
       data
     })
@@ -51,7 +50,7 @@ class SysUser {
   @PermissionAction()
   delete(data) {
     return request({
-      url: 'sys/user/delete',
+      url: 'user/delete',
       method: 'post',
       data
     })

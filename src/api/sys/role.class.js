@@ -6,16 +6,15 @@ class SysRole {
   @PermissionAction()
   info(query) {
     return request({
-      url: 'sys/role/info',
-      method: 'get',
-      params: query
+      url: `role/info/${query.roleId}`,
+      method: 'get'
     })
   }
 
   @PermissionAction()
   list() {
     return request({
-      url: 'sys/role/list',
+      url: 'role/list',
       method: 'get'
     })
   }
@@ -23,7 +22,7 @@ class SysRole {
   @PermissionAction()
   page(query) {
     return request({
-      url: 'sys/role/page',
+      url: 'role/page',
       method: 'get',
       params: query
     })
@@ -32,7 +31,7 @@ class SysRole {
   @PermissionAction()
   add(data) {
     return request({
-      url: 'sys/role/add',
+      url: 'role/add',
       method: 'post',
       data
     })
@@ -41,7 +40,7 @@ class SysRole {
   @PermissionAction()
   update(data) {
     return request({
-      url: 'sys/role/update',
+      url: 'role/modify',
       method: 'post',
       data
     })
@@ -50,7 +49,7 @@ class SysRole {
   @PermissionAction()
   delete(data) {
     return request({
-      url: 'sys/role/delete',
+      url: 'role/delete',
       method: 'post',
       data
     })

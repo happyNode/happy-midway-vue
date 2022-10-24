@@ -1,11 +1,11 @@
 <template>
   <div class="sys-menu-container">
     <table-layout>
-      <s-table ref="roleTable" :data-request="getRoleList" show-pagination stripe row-key="id" border>
+      <s-table ref="roleTable" :data-request="getRoleList" show-pagination stripe row-key="roleId" border>
         <template v-slot:prepend>
           <el-button size="mini" type="primary" :disabled="!$auth('sys.role.add')" @click="handleAdd">新增</el-button>
         </template>
-        <el-table-column prop="id" label="#" align="center" width="55" />
+        <el-table-column prop="roleId" label="#" align="center" width="55" />
         <el-table-column prop="name" label="名称" align="center" width="200" />
         <el-table-column prop="label" label="标识" align="center" width="200" />
         <el-table-column prop="remark" label="备注" align="center" />
@@ -44,7 +44,7 @@ export default {
   methods: {
     async getRoleList({ page, limit }) {
       const { data } = await this.$api.sys.role.page({ page, limit })
-      return { list: data.list, pagination: { total: data.pagination.total }}
+      return { rows: data.rows, count: data.total }
     },
     handleRefresh() {
       this.$refs.roleTable.refresh()
@@ -53,11 +53,11 @@ export default {
       this.$refs.formDialog.open()
     },
     handleEdit(row) {
-      this.$refs.formDialog.open(row.id)
+      this.$refs.formDialog.open(row.roleId)
     },
     async handleDelete(row, { done, close }) {
       try {
-        await this.$api.sys.role.delete({ roleIds: [row.id] })
+        await this.$api.sys.role.delete({ roleIds: [row.roleId] })
         close()
       } catch (e) {
         done()

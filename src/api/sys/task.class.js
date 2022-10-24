@@ -6,7 +6,7 @@ class SysTask {
   @PermissionAction()
   page(query) {
     return request({
-      url: 'sys/task/page',
+      url: 'task',
       params: query,
       method: 'get'
     })
@@ -15,7 +15,7 @@ class SysTask {
   @PermissionAction()
   info(query) {
     return request({
-      url: 'sys/task/info',
+      url: 'task/info',
       params: query,
       method: 'get'
     })
@@ -24,7 +24,7 @@ class SysTask {
   @PermissionAction()
   add(data) {
     return request({
-      url: 'sys/task/add',
+      url: 'task/add',
       method: 'post',
       data
     })
@@ -33,7 +33,7 @@ class SysTask {
   @PermissionAction()
   delete(data) {
     return request({
-      url: 'sys/task/delete',
+      url: 'task/remove',
       method: 'post',
       data
     })
@@ -42,7 +42,7 @@ class SysTask {
   @PermissionAction()
   update(data) {
     return request({
-      url: 'sys/task/update',
+      url: 'task/update',
       method: 'post',
       data
     })
@@ -51,7 +51,7 @@ class SysTask {
   @PermissionAction()
   once(data) {
     return request({
-      url: 'sys/task/once',
+      url: 'task/once',
       method: 'post',
       data
     })
@@ -60,7 +60,7 @@ class SysTask {
   @PermissionAction()
   start(data) {
     return request({
-      url: 'sys/task/start',
+      url: 'task/start',
       method: 'post',
       data
     })
@@ -69,7 +69,7 @@ class SysTask {
   @PermissionAction()
   stop(data) {
     return request({
-      url: 'sys/task/stop',
+      url: 'task/stop',
       method: 'post',
       data
     })

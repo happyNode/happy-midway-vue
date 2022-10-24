@@ -6,7 +6,7 @@ class SysOnline {
   @PermissionAction()
   list() {
     return request({
-      url: 'sys/online/list',
+      url: 'admin/sys/online/list',
       method: 'get'
     })
   }
@@ -14,7 +14,7 @@ class SysOnline {
   @PermissionAction()
   kick(data) {
     return request({
-      url: 'sys/online/kick',
+      url: 'admin/sys/online/kick',
       method: 'post',
       data
     })

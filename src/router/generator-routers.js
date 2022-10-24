@@ -22,7 +22,7 @@ function createRoute(menu, isRoot) {
   // 外链菜单
   if (isExternal(menu.router)) {
     return {
-      path: `external-link${menu.id}`,
+      path: `external-link${menu.menuId}`,
       component: Layout,
       children: [
         {
@@ -73,7 +73,6 @@ function createRoute(menu, isRoot) {
  */
 export function filterAsyncRoutes(routes, parentRoute) {
   const res = []
-
   routes.forEach(route => {
     if (route.type === 2 || !route.isShow) {
       // 如果是权限或隐藏直接跳过
@@ -92,10 +91,10 @@ export function filterAsyncRoutes(routes, parentRoute) {
         realRoute.redirect = childRoutes[0].path
         realRoute.children = childRoutes
       }
-    } else if (parentRoute && parentRoute.id === route.parentId && route.type === 1) {
+    } else if (parentRoute && parentRoute.menuId === route.parentId && route.type === 1) {
       // 子菜单
       realRoute = createRoute(route, false)
-    } else if (parentRoute && parentRoute.id === route.parentId && route.type === 0) {
+    } else if (parentRoute && parentRoute.menuId === route.parentId && route.type === 0) {
       // 如果还是目录，继续递归
       const childRoute = filterAsyncRoutes(routes, route)
       realRoute = createRoute(route, false)

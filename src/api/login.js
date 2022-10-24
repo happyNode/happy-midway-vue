@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function login(data) {
   return request({
-    url: 'login',
+    url: 'public/login',
     method: 'post',
     data
   })
@@ -10,7 +10,7 @@ export function login(data) {
 
 export function getImageCaptcha(query) {
   return request({
-    url: 'captcha/img',
+    url: 'public/captcha/img',
     method: 'get',
     query
   })

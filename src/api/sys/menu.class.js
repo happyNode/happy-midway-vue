@@ -6,7 +6,7 @@ class SysMenu {
   @PermissionAction()
   list() {
     return request({
-      url: 'sys/menu/list',
+      url: 'menu/list',
       method: 'get'
     })
   }
@@ -14,16 +14,15 @@ class SysMenu {
   @PermissionAction()
   info(query) {
     return request({
-      url: 'sys/menu/info',
-      method: 'get',
-      params: query
+      url: `menu/info/${query.menuId}`,
+      method: 'get'
     })
   }
 
   @PermissionAction()
   add(data) {
     return request({
-      url: 'sys/menu/add',
+      url: 'menu/add',
       method: 'post',
       data
     })
@@ -32,7 +31,7 @@ class SysMenu {
   @PermissionAction()
   update(data) {
     return request({
-      url: 'sys/menu/update',
+      url: 'menu/update',
       method: 'post',
       data
     })
@@ -41,7 +40,7 @@ class SysMenu {
   @PermissionAction()
   delete(data) {
     return request({
-      url: 'sys/menu/delete',
+      url: 'menu/delete',
       method: 'post',
       data
     })

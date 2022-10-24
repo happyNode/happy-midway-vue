@@ -15,7 +15,7 @@ class SysLog {
   @PermissionAction('task/page')
   taskPage(query) {
     return request({
-      url: 'sys/log/task/page',
+      url: 'task/logs',
       method: 'get',
       params: query
     })

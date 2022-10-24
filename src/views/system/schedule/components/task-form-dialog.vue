@@ -2,8 +2,8 @@
   <form-dialog ref="formDialog">
     <template #slot-type="{ scope }">
       <el-radio-group v-model="scope.type" @change="handleTaskTypeChange">
-        <el-radio :label="0">Cron</el-radio>
-        <el-radio :label="1">时间间隔</el-radio>
+        <el-radio :label="1">Cron</el-radio>
+        <el-radio :label="2">时间间隔</el-radio>
       </el-radio-group>
     </template>
     <template #slot-status="{ scope }">
@@ -25,7 +25,7 @@ export default {
       if (updateId !== -1) {
         try {
           showLoading()
-          const { data } = await this.$api.sys.task.info({ id: updateId })
+          const { data } = await this.$api.sys.task.info({ taskId: updateId })
           rebind(data)
           hideLoading()
         } catch {
@@ -39,7 +39,7 @@ export default {
         // create
         req = this.$api.sys.task.add(data)
       } else {
-        data.id = updateId
+        data.taskId = updateId
         req = this.$api.sys.task.update(data)
       }
       req
@@ -68,7 +68,7 @@ export default {
           {
             label: '类型',
             prop: 'type',
-            value: 0,
+            value: 1,
             rules: {
               required: true,
               message: '请选择任务类型',
@@ -78,7 +78,7 @@ export default {
           },
           {
             label: '任务名称',
-            prop: 'name',
+            prop: 'taskName',
             value: '',
             rules: {
               required: true,
@@ -92,25 +92,25 @@ export default {
               }
             }
           },
-          {
-            label: '服务路径',
-            prop: 'service',
-            value: '',
-            rules: {
-              required: true,
-              message: '请输入调用服务的路径',
-              trigger: 'blur'
-            },
-            component: {
-              name: 'el-input',
-              attrs: {
-                placeholder: '请输入调用服务的路径'
-              }
-            }
-          },
+          // {
+          //   label: '服务路径',
+          //   prop: 'service',
+          //   value: '',
+          //   rules: {
+          //     required: true,
+          //     message: '请输入调用服务的路径',
+          //     trigger: 'blur'
+          //   },
+          //   component: {
+          //     name: 'el-input',
+          //     attrs: {
+          //       placeholder: '请输入调用服务的路径'
+          //     }
+          //   }
+          // },
           {
             label: '任务参数',
-            prop: 'data',
+            prop: 'args',
             value: '',
             component: {
               name: 'el-input',
@@ -139,7 +139,7 @@ export default {
             prop: 'cron',
             value: '',
             hidden: ({ scope }) => {
-              return scope.type === 1
+              return scope.type === 2
             },
             rules: {
               required: true,
@@ -163,7 +163,7 @@ export default {
               trigger: 'blur'
             },
             hidden: ({ scope }) => {
-              return scope.type === 0
+              return scope.type === 1
             },
             component: {
               name: 'el-input-number',
@@ -181,7 +181,7 @@ export default {
             prop: 'startTime',
             value: '',
             hidden: ({ scope }) => {
-              return scope.type === 1
+              return scope.type === 2
             },
             component: {
               name: 'el-date-picker',
@@ -201,7 +201,7 @@ export default {
             prop: 'endTime',
             value: '',
             hidden: ({ scope }) => {
-              return scope.type === 1
+              return scope.type === 2
             },
             component: {
               name: 'el-date-picker',

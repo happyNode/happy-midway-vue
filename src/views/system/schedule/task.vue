@@ -20,7 +20,7 @@
           <template slot-scope="props">
             <el-form label-position="left" class="task-detail-table-expand">
               <el-form-item label="任务编号">
-                <span># {{ props.row.id }}</span>
+                <span># {{ props.row.taskId }}</span>
               </el-form-item>
               <el-form-item label="执行次数">
                 <span>{{
@@ -76,7 +76,7 @@
           </template>
         </el-table-column>
         <el-table-column
-          prop="name"
+          prop="taskName"
           show-overflow-tooltip
           label="任务名称"
           align="center"
@@ -98,19 +98,19 @@
         <el-table-column prop="type" label="类型" width="100" align="center">
           <template slot-scope="scope">
             <el-tag type="small" effect="light">{{
-              scope.row.type === 1 ? 'Interval' : 'Cron'
+              scope.row.type === 1 ? 'Cron' : 'Interval'
             }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column
+        <!-- <el-table-column
           prop="service"
           show-overflow-tooltip
           label="调用服务"
           width="350"
           align="center"
-        />
+        /> -->
         <el-table-column
-          prop="data"
+          prop="args"
           show-overflow-tooltip
           label="执行参数"
           width="450"
@@ -174,11 +174,11 @@ export default {
       this.$refs.taskFormDialog.open()
     },
     handleEdit(row) {
-      this.$refs.taskFormDialog.open(row.id)
+      this.$refs.taskFormDialog.open(row.taskId)
     },
     async handleDelete(row, { done, close }) {
       try {
-        await this.$api.sys.task.delete({ id: row.id })
+        await this.$api.sys.task.delete({ taskId: row.taskId })
         close()
       } catch {
         done()
@@ -186,7 +186,7 @@ export default {
     },
     async handleOnce(row, { done, close }) {
       try {
-        await this.$api.sys.task.once({ id: row.id })
+        await this.$api.sys.task.once({ taskId: row.taskId })
         close()
       } catch {
         done()
@@ -194,7 +194,7 @@ export default {
     },
     async handleStart(row, { done, close }) {
       try {
-        await this.$api.sys.task.start({ id: row.id })
+        await this.$api.sys.task.start({ taskId: row.taskId })
         close()
       } catch {
         done()
@@ -202,7 +202,7 @@ export default {
     },
     async handleStop(row, { done, close }) {
       try {
-        await this.$api.sys.task.stop({ id: row.id })
+        await this.$api.sys.task.stop({ taskId: row.taskId })
         close()
       } catch {
         done()

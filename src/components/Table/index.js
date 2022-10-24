@@ -119,10 +119,9 @@ export default {
       if ((typeof result === 'object' || typeof result === 'function') && typeof result.then === 'function') {
         result.then(res => {
           // props中的dataRequest必须返回一个Promise，且返回的数据结构需要满足 { list, pagination: { total } }
-          this.localDataSource = res.list
-
+          this.localDataSource = res.rows
           if (this.showPagination) {
-            this.localPagination.total = res.pagination.total
+            this.localPagination.total = res.count
           }
 
           this.localLoading = false

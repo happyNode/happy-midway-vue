@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function updateAccountInfo(data) {
   return request({
-    url: 'account/update',
+    url: 'common/account/update',
     method: 'post',
     data
   })
@@ -10,7 +10,7 @@ export function updateAccountInfo(data) {
 
 export function updatePassword(data) {
   return request({
-    url: 'account/password',
+    url: 'common/account/password',
     method: 'post',
     data
   })
@@ -18,21 +18,21 @@ export function updatePassword(data) {
 
 export function getInfo() {
   return request({
-    url: 'account/info',
+    url: 'common/account/info',
     method: 'get'
   })
 }
 
 export function permmenu() {
   return request({
-    url: 'account/permmenu',
+    url: 'common/account/permmenu',
     method: 'get'
   })
 }
 
 export function logout() {
   return request({
-    url: 'account/logout',
+    url: 'common/account/logout',
     method: 'post'
   })
 }

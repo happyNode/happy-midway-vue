@@ -6,7 +6,7 @@ class SysDept {
   @PermissionAction()
   list() {
     return request({
-      url: 'sys/dept/list',
+      url: 'dept/list',
       method: 'get'
     })
   }
@@ -14,7 +14,7 @@ class SysDept {
   @PermissionAction()
   move(data) {
     return request({
-      url: 'sys/dept/move',
+      url: 'dept/move',
       method: 'post',
       data
     })
@@ -23,7 +23,7 @@ class SysDept {
   @PermissionAction()
   update(data) {
     return request({
-      url: 'sys/dept/update',
+      url: 'dept/update',
       method: 'post',
       data
     })
@@ -32,7 +32,7 @@ class SysDept {
   @PermissionAction()
   delete(data) {
     return request({
-      url: 'sys/dept/delete',
+      url: 'dept/delete',
       method: 'post',
       data
     })
@@ -41,7 +41,7 @@ class SysDept {
   @PermissionAction()
   add(data) {
     return request({
-      url: 'sys/dept/add',
+      url: 'dept/add',
       method: 'post',
       data
     })
@@ -50,7 +50,7 @@ class SysDept {
   @PermissionAction()
   info(query) {
     return request({
-      url: 'sys/dept/info',
+      url: 'dept/info',
       method: 'get',
       params: query
     })
@@ -59,7 +59,7 @@ class SysDept {
   @PermissionAction()
   transfer(data) {
     return request({
-      url: 'sys/dept/transfer',
+      url: 'dept/transfer',
       method: 'post',
       data
     })

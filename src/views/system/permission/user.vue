@@ -71,12 +71,12 @@
             align="center"
             width="180"
           />
-          <el-table-column
+          <!-- <el-table-column
             prop="departmentName"
             label="所在部门"
             align="center"
             width="180"
-          />
+          /> -->
           <el-table-column
             prop="roleNames"
             label="所属角色"
@@ -94,12 +94,12 @@
               >{{ i }}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="nickName"
             label="呢称"
             width="160"
             align="center"
-          />
+          /> -->
           <el-table-column
             prop="email"
             label="邮箱"
@@ -207,7 +207,7 @@ export default {
           ? undefined
           : this.$refs.deptPane.getDeptIdChildrenById(this.currentDeptId)
       })
-      return { list: data.list, pagination: { total: data.pagination.total }}
+      return { rows: data.list, count: data.total }
     },
     handleDeptChange(data) {
       this.currentDeptId = data.id
@@ -226,7 +226,7 @@ export default {
       this.$refs.userFormDialog.open(this.$refs.deptPane.getDeptList())
     },
     handleEdit(row) {
-      this.$refs.userFormDialog.open(this.$refs.deptPane.getDeptList(), row.id)
+      this.$refs.userFormDialog.open(this.$refs.deptPane.getDeptList(), row.userId)
     },
     handleUpdatePassword(row) {
       this.$openFormDialog({

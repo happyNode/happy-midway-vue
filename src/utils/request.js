@@ -21,7 +21,7 @@ service.interceptors.request.use(
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers['Authorization'] = getToken()
+      config.headers['Authorization'] = 'Bearer ' + getToken()
     }
     return config
   },
@@ -48,9 +48,9 @@ service.interceptors.response.use(
     const res = response.data
 
     // if the custom code is not 200, it is judged as an error.
-    if (res.code !== 200) {
+    if (res.code !== 0) {
       Message({
-        message: res.message || UNKNOWN_ERROR,
+        message: res.msg || UNKNOWN_ERROR,
         type: 'error',
         duration: 5 * 1000
       })
@@ -58,7 +58,7 @@ service.interceptors.response.use(
       // Illegal token
       if (res.code === 11001 || res.code === 11002) {
         // to re-login
-        MessageBox.confirm(res.message || '账号异常，您可以取消停留在该页上，或重新登录', '警告', {
+        MessageBox.confirm(res.msg || '账号异常，您可以取消停留在该页上，或重新登录', '警告', {
           confirmButtonText: '重新登录',
           cancelButtonText: '取消',
           type: 'warning'
@@ -70,7 +70,7 @@ service.interceptors.response.use(
       }
 
       // throw other
-      const error = new Error(res.message || UNKNOWN_ERROR)
+      const error = new Error(res.msg || UNKNOWN_ERROR)
       error.code = res.code
       return Promise.reject(error)
     } else {
@@ -79,7 +79,7 @@ service.interceptors.response.use(
   },
   error => {
     // 处理 422 或者 500 的错误异常提示
-    const errMsg = (error && error.response && error.response.data && error.response.data.message) ? error.response.data.message : UNKNOWN_ERROR
+    const errMsg = (error && error.response && error.response.data && error.response.data.msg) ? error.response.data.msg : UNKNOWN_ERROR
     Message({
       message: errMsg,
       type: 'error',

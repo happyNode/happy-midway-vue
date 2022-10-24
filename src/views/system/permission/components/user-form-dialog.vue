@@ -9,7 +9,7 @@
           :data="scope.deptNode.data"
           :props="{ children: 'children', label: 'label' }"
           @node-click="
-            data => {
+            (data) => {
               scope.deptNode.id = data.id
               scope.deptNode.value = data.label
             }
@@ -28,14 +28,14 @@
         v-model="scope.roles.value"
         multiple
         placeholder="请选择"
-        style="width: 100%;"
+        style="width: 100%"
         :multiple-limit="3"
       >
         <el-option
           v-for="item in scope.roles.data"
-          :key="item.id"
+          :key="item.roleId"
           :label="item.name"
-          :value="item.id"
+          :value="item.roleId"
         />
       </el-select>
     </template>
@@ -60,11 +60,12 @@ export default {
   },
   methods: {
     async handleSubmit(data, { done, close }) {
-      const { deptNode, roles } = data
+      // const { deptNode, roles } = data
+      const { roles } = data
       delete data.deptNode
       delete data.roles
       // dept id
-      data.departmentId = deptNode.id
+      // data.departmentId = deptNode.id
       data.roles = roles.value
       let req = null
 
@@ -76,7 +77,7 @@ export default {
         req = this.$api.sys.user.update(data)
       }
       req
-        .then(_ => {
+        .then((_) => {
           this.$emit('save-success')
           close()
         })
@@ -88,6 +89,7 @@ export default {
       try {
         showLoading()
         const { data: roleData } = await this.$api.sys.role.list()
+        console.log('----', this.updateId)
         if (this.updateId === -1) {
           // create
           form.roles.data = roleData
@@ -124,27 +126,29 @@ export default {
       this.$refs.formDialog.open({
         title: '编辑用户',
         on: {
-          open: (form, methods) => { this.handleOpen(depts, form, methods) },
+          open: (form, methods) => {
+            this.handleOpen(depts, form, methods)
+          },
           submit: this.handleSubmit
         },
         items: [
-          {
-            label: '所属部门',
-            prop: 'deptNode',
-            value: { id: undefined, value: '', data: depts },
-            rules: {
-              required: true,
-              trigger: 'blur',
-              validator: (rule, value, callback) => {
-                if (!value.id || !isNumber(value.id)) {
-                  callback(new Error('请选择所属部门'))
-                } else {
-                  callback()
-                }
-              }
-            },
-            component: 'slot-dept-node'
-          },
+          // {
+          //   label: '所属部门',
+          //   prop: 'deptNode',
+          //   value: { id: undefined, value: '', data: depts },
+          //   rules: {
+          //     required: true,
+          //     trigger: 'blur',
+          //     validator: (rule, value, callback) => {
+          //       if (!value.id || !isNumber(value.id)) {
+          //         callback(new Error('请选择所属部门'))
+          //       } else {
+          //         callback()
+          //       }
+          //     }
+          //   },
+          //   component: 'slot-dept-node'
+          // },
           {
             label: '所属角色',
             prop: 'roles',
@@ -195,18 +199,18 @@ export default {
               }
             }
           },
-          {
-            label: '呢称',
-            prop: 'nickName',
-            value: '',
-            span: 12,
-            component: {
-              name: 'el-input',
-              attrs: {
-                placeholder: '请输入呢称'
-              }
-            }
-          },
+          // {
+          //   label: '呢称',
+          //   prop: 'nickName',
+          //   value: '',
+          //   span: 12,
+          //   component: {
+          //     name: 'el-input',
+          //     attrs: {
+          //       placeholder: '请输入呢称'
+          //     }
+          //   }
+          // },
           {
             label: '邮箱',
             prop: 'email',

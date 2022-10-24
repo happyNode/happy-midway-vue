@@ -119,7 +119,7 @@ export default {
     }
   },
   created() {
-    this.refresh()
+    // this.refresh()
   },
   methods: {
     /**

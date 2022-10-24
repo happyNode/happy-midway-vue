@@ -12,11 +12,10 @@ export default {
     async handleOpen(updateId, form, { showLoading, hideLoading, close, $refs }) {
       try {
         showLoading()
-        const { data: deptsData } = await this.$api.sys.dept.list()
+        // const { data: deptsData } = await this.$api.sys.dept.list()
         const { data: menusData } = await this.$api.sys.menu.list()
         form.menus.data = this.filterMenuHasPermsToTree(menusData, null)
-        form.depts.data = this.filterDeptToTree(deptsData, null)
-
+        // form.depts.data = this.filterDeptToTree(deptsData, null)
         if (updateId !== -1) {
           // get role data
           const { data: result } = await this.$api.sys.role.info({ roleId: updateId })
@@ -26,7 +25,8 @@ export default {
           form.label = result.roleInfo.label
           form.remark = result.roleInfo.remark
 
-          const { menus, depts } = result
+          // const { menus, depts } = result
+          const { menus } = result
 
           // set node
           if (menus && menus.length > 0) {
@@ -39,15 +39,15 @@ export default {
             })
           }
 
-          if (depts && depts.length > 0) {
-            depts.forEach(d => {
-              const node = $refs.deptTree.getNode(d.departmentId)
-              // console.log(node)
-              if (node && node.isLeaf) {
-                $refs.deptTree.setChecked(node, true)
-              }
-            })
-          }
+          // if (depts && depts.length > 0) {
+          //   depts.forEach(d => {
+          //     const node = $refs.deptTree.getNode(d.departmentId)
+          //     // console.log(node)
+          //     if (node && node.isLeaf) {
+          //       $refs.deptTree.setChecked(node, true)
+          //     }
+          //   })
+          // }
         }
         hideLoading()
       } catch {
@@ -56,9 +56,9 @@ export default {
     },
     handleSubmit(updateId, data, { close, done, $refs }) {
       const menus = this.getMenuTreeCheckedKeys($refs)
-      const depts = this.getDeptTreeCheckedKeys($refs)
+      // const depts = this.getDeptTreeCheckedKeys($refs)
       data.menus = menus
-      data.depts = depts
+      // data.depts = depts
 
       let req = null
 
@@ -157,7 +157,7 @@ export default {
                 props: {
                   data: scope.menus.data,
                   'show-checkbox': true,
-                  'node-key': 'id',
+                  'node-key': 'menuId',
                   'highlight-current': true,
                   props: {
                     children: 'children',
@@ -167,29 +167,29 @@ export default {
                 ref: 'menuTree'
               })
             }
-          },
-          {
-            label: '部门权限',
-            prop: 'depts',
-            span: 12,
-            value: { data: [] },
-            component: function(h, { scope }) {
-              return h('el-tree', {
-                class: { 'role-form-dialog-tree-container': true },
-                props: {
-                  data: scope.depts.data,
-                  'show-checkbox': true,
-                  'node-key': 'id',
-                  'highlight-current': true,
-                  props: {
-                    children: 'children',
-                    label: 'label'
-                  }
-                },
-                ref: 'deptTree'
-              })
-            }
           }
+          // {
+          //   label: '部门权限',
+          //   prop: 'depts',
+          //   span: 12,
+          //   value: { data: [] },
+          //   component: function(h, { scope }) {
+          //     return h('el-tree', {
+          //       class: { 'role-form-dialog-tree-container': true },
+          //       props: {
+          //         data: scope.depts.data,
+          //         'show-checkbox': true,
+          //         'node-key': 'id',
+          //         'highlight-current': true,
+          //         props: {
+          //           children: 'children',
+          //           label: 'label'
+          //         }
+          //       },
+          //       ref: 'deptTree'
+          //     })
+          //   }
+          // }
         ]
       })
     }

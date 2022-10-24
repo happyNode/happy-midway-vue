@@ -4,7 +4,7 @@
       <s-table
         ref="menuTable"
         :data-request="getMenuList"
-        row-key="id"
+        row-key="menuId"
         border
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
         @row-click="handleRowClick"
@@ -77,7 +77,7 @@
           </template>
         </el-table-column>
         <el-table-column
-          prop="orderNum"
+          prop="rank"
           label="排序号"
           width="80"
           align="center"
@@ -134,17 +134,16 @@ export default {
   methods: {
     async getMenuList() {
       const { data } = await this.$api.sys.menu.list()
-
       // clean
       if (this.menutree && this.menutree.length > 0) {
         this.menutree = []
       }
       // 同时缓存树形菜单
-      const parentNode = { id: -1, label: '一级菜单' }
+      const parentNode = { menuId: -1, label: '一级菜单' }
       parentNode.children = this.filterMenuToTree(data, null)
       this.menutree.push(parentNode)
 
-      return { list: this.filterMenuToTable(data, null) }
+      return { rows: this.filterMenuToTable(data, null) }
     },
     /**
      * 将对应菜单类型转为字符串字意
@@ -169,11 +168,11 @@ export default {
       this.$refs.menuDialog.open(this.menutree)
     },
     handleEdit(item) {
-      this.$refs.menuDialog.open(this.menutree, item.id)
+      this.$refs.menuDialog.open(this.menutree, item.menuId)
     },
     async handleDelete(row, { close, done }) {
       try {
-        await this.$api.sys.menu.delete({ menuId: row.id })
+        await this.$api.sys.menu.delete({ menuId: row.menuId })
         close()
       } catch (e) {
         done()
