@@ -85,10 +85,10 @@
         <el-table-column
           prop="updatedAt"
           label="更新时间"
-          width="180"
+          width="360"
           align="center"
         />
-        <el-table-column label="操作" width="150" align="center" fixed="right">
+        <el-table-column label="操作" min-width="150" align="center" fixed="right">
           <template slot-scope="scope">
             <el-button
               :disabled="!$auth('sys.menu.update')"

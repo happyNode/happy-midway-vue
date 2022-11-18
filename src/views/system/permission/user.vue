@@ -235,7 +235,7 @@ export default {
           submit: async(data, { close, done }) => {
             try {
               await this.$api.sys.user.password({
-                userId: row.id,
+                userId: row.userId,
                 password: data.password
               })
               close()
@@ -269,7 +269,7 @@ export default {
     },
     async handleDelete(row, { close, done }) {
       try {
-        await this.$api.sys.user.delete({ userIds: [row.id] })
+        await this.$api.sys.user.delete({ userIds: [row.userId] })
         close()
       } catch {
         done()

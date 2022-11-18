@@ -5,7 +5,7 @@
         ref="taskTable"
         :data-request="getTaskList"
         show-pagination
-        row-key="id"
+        row-key="taskId"
         :border="false"
       >
         <template v-slot:prepend>
@@ -29,7 +29,7 @@
                     : '无次数限制'
                 }}</span>
               </el-form-item>
-              <el-form-item v-if="props.row.type === 1" label="执行间隔">
+              <el-form-item v-if="props.row.type === 2" label="执行间隔">
                 <span>每 {{ props.row.every }} 毫秒执行一次</span>
               </el-form-item>
               <el-form-item v-else label="Cron表达式">
@@ -37,7 +37,7 @@
                   <span>{{ props.row.cron }}</span>
                 </el-tooltip>
               </el-form-item>
-              <el-form-item v-if="props.row.type === 0" label="执行时间段">
+              <el-form-item v-if="props.row.type === 1" label="执行时间段">
                 <span>{{ parseExecTime(props.row) }}</span>
               </el-form-item>
               <el-form-item label="执行操作">
@@ -113,7 +113,7 @@
           prop="args"
           show-overflow-tooltip
           label="执行参数"
-          width="450"
+          width="800"
           align="center"
         />
         <el-table-column
@@ -123,7 +123,7 @@
           width="250"
           align="center"
         />
-        <el-table-column label="操作" width="150" align="center" fixed="right">
+        <el-table-column label="操作" min-width="150" align="center" fixed="right">
           <template slot-scope="scope">
             <el-button
               size="mini"
